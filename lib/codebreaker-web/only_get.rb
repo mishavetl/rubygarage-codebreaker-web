@@ -8,7 +8,8 @@ module CodebreakerWeb
       request = Rack::Request.new env
 
       if !request.get?
-        return Rack::Response.new 'Method not allowed', 405, {}
+        response = Rack::Response.new 'Method not allowed', 405, {}
+        return reponse.finish
       end
 
       @app.call env
