@@ -5,8 +5,12 @@
     <link rel="stylesheet" href="/css/styles.css" type="text/css" media="screen" />
   </head>
   <body>
-    <div id="container">
+    <div class="container">
       <h1>User name is <%= user %></h1>
+      <form method="post" action="/guess">
+        <input type="text" name="guess" value="" />
+        <input type="submit" value="Guess" />
+      </form>
     </div>
   </body>
 </html>

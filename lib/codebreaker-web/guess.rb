@@ -13,7 +13,7 @@ module CodebreakerWeb
       # response.write render(request)
       # response.finish
 
-      reponse.write 'not implemented'
+      response.write 'not implemented'
       response.finish
     end
 
