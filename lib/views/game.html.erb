@@ -13,5 +13,11 @@
       </form>
       <h2>Attempts: <%= attempts_left %>/<%= attempts_amount %></h2>
     </div>
+
+    <ul>
+      <% attempts.each do |attempt| %>
+      <li><%= attempt['guess'] %> -> <%= attempt['output'] %></li>
+      <% end %>
+    </ul>
   </body>
 </html>

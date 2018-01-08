@@ -1,5 +1,7 @@
-require './lib/codebreaker-web/view.rb'
-require './lib/codebreaker-web/config.rb'
+require 'json'
+
+require 'codebreaker-web/view'
+require 'codebreaker-web/config'
 
 module CodebreakerWeb
   class Game
@@ -18,7 +20,13 @@ module CodebreakerWeb
       attempts_left = cookies['attempts_left']
       attempts_left ||= ''
       attempts_amount = Config.attempts_amount
+      attempts = getAttempts cookies
       View::render('game.html.erb', binding)
+    end
+
+    def self.getAttempts(cookies)
+      attemptsSrc = cookies['attempts'] || ''
+      JSON.parse attemptsSrc
     end
   end
 end

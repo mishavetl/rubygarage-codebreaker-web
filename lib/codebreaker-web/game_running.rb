@@ -1,4 +1,4 @@
-require './lib/codebreaker-web/view.rb'
+require 'codebreaker-web/view'
 
 module CodebreakerWeb
   class GameRunning
