@@ -1,11 +1,13 @@
 require './lib/codebreaker-web/index.rb'
 require './lib/codebreaker-web/game.rb'
 require './lib/codebreaker-web/guess.rb'
-require './lib/codebreaker-web/lint.rb'
+require './lib/codebreaker-web/hint.rb'
 require './lib/codebreaker-web/only_get.rb'
 require './lib/codebreaker-web/only_post.rb'
 require './lib/codebreaker-web/game_running.rb'
 require './lib/codebreaker-web/end.rb'
+require './lib/codebreaker-web/won.rb'
+require './lib/codebreaker-web/statistics.rb'
 require './lib/codebreaker-web/start_game_if_user_given.rb'
 
 use Rack::Static, urls: ['/css'], root: 'public'
@@ -33,15 +35,25 @@ app = Rack::Builder.new do
     run CodebreakerWeb::Guess
   end
 
-  map "/lint" do
+  map "/hint" do
     use CodebreakerWeb::OnlyPost
     use CodebreakerWeb::GameRunning
-    run CodebreakerWeb::Lint
+    run CodebreakerWeb::Hint
+  end
+
+  map "/statistics" do
+    use CodebreakerWeb::OnlyGet
+    run CodebreakerWeb::Statistics
   end
 
   map "/end" do
     use CodebreakerWeb::OnlyGet
     run CodebreakerWeb::End
+  end
+
+  map "/won" do
+    use CodebreakerWeb::OnlyGet
+    run CodebreakerWeb::Won
   end
 end
 

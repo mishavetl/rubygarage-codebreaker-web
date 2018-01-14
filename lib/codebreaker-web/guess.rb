@@ -1,4 +1,5 @@
 require 'codebreaker-web/view'
+require 'codebreaker-web/config'
 require 'codebreaker'
 require 'json'
 
@@ -26,6 +27,7 @@ module CodebreakerWeb
 
       match_guess actualCode, guess, cookies, response
 
+
       response.redirect '/game'
       response.finish
     end
@@ -35,8 +37,21 @@ module CodebreakerWeb
       game.start 1
       game.instance_variable_set('@code', actualCode)
       attempts = JSON.parse(cookies['attempts'])
-      new_attempts = attempts << {guess: guess, output: game.guess(guess)}
+      out_guess = game.guess(guess)
+
+      game_end_won(response, cookies) if out_guess == '++++'
+
+      new_attempts = attempts << {guess: guess, output: out_guess}
       response.set_cookie 'attempts', JSON.generate(new_attempts)
+    end
+
+    def self.game_end_won(response, cookies)
+      statistics = JSON.parse cookies['statistics']
+      user = cookies['user']
+      attempts_left = cookies['attempts_left']
+      statistics << {user: user, score: attempts_left.to_i + 1}
+      response.set_cookie 'statistics', JSON.generate(statistics)
+      response.set_cookie 'won', '1'
     end
   end
 end

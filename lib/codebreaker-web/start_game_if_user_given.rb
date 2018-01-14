@@ -12,14 +12,15 @@ module CodebreakerWeb
       user = request.params['user']
       code = Codebreaker::Game.new.generate(4)
       attempts = JSON.generate []
-      request.cookies['user'] = user
-      request.cookies['attempts_left'] = Config.attempts_amount
-      request.cookies['code'] = code
-      request.cookies['attempts'] = attempts
+      statistics = request.cookies['statistics'] || '[]'
       response.set_cookie 'user', user
       response.set_cookie 'attempts_left', Config.attempts_amount
       response.set_cookie 'code', code
       response.set_cookie 'attempts', attempts
+      response.set_cookie 'last_hint', ''
+      response.set_cookie 'hints', '0'
+      response.set_cookie 'statistics', statistics
+      response.set_cookie 'won', '0'
     end
 
     def call(env)

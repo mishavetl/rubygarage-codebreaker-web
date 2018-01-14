@@ -21,6 +21,7 @@ module CodebreakerWeb
       attempts_left ||= ''
       attempts_amount = Config.attempts_amount
       attempts = getAttempts cookies
+      last_hint = cookies['last_hint']
       View::render('game.html.erb', binding)
     end
 

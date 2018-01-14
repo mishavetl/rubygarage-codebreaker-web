@@ -9,7 +9,7 @@ module CodebreakerWeb
 
       if !request.get?
         response = Rack::Response.new 'Method not allowed', 405, {}
-        return reponse.finish
+        return response.finish
       end
 
       @app.call env

@@ -7,17 +7,20 @@
   <body>
     <div class="container">
       <h1>User name is <%= user %></h1>
-      <form method="post" action="/guess">
+      <form style="display: inline-block;" method="post" action="/guess">
         <input type="text" name="guess" value="" />
         <input type="submit" value="Guess" />
       </form>
+      <form style="display: inline-block;" method="post" action="/hint">
+        <input type="submit" value="Hint" />
+      </form>
+      <h2>Last hint: <%= last_hint %></h2>
       <h2>Attempts: <%= attempts_left %>/<%= attempts_amount %></h2>
+      <ul>
+        <% attempts.each do |attempt| %>
+        <li><%= attempt['guess'] %> -> <%= attempt['output'] %></li>
+        <% end %>
+      </ul>
     </div>
-
-    <ul>
-      <% attempts.each do |attempt| %>
-      <li><%= attempt['guess'] %> -> <%= attempt['output'] %></li>
-      <% end %>
-    </ul>
   </body>
 </html>
